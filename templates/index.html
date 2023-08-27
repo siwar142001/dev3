@@ -1,0 +1,234 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Accueil
+{% endblock %}
+{% block content %}
+
+<!-- Hero Section Begin -->
+<section class="hero set-bg" data-setbg="{% static 'front/img/hero/hero-bg.jpg' %}">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="hero__text">
+                    <div class="section-title">
+                        <h2>Discover The Best Services Near You</h2>
+                        <p>1.118.940.376 The best service package is waiting for you</p>
+                    </div>
+                    <div class="hero__search__form">
+                        <form method="get" action="{% url 'recherche' %}">
+                            <input type="text" name="m" placeholder="Recherche suivant un mot dans le nom...">
+                            
+                            <div class="select__option">
+                                <select name="v">
+                                    <option value="">Choisir une ville</option>
+                                    {% for va in villes_all %}
+                                    <option value="{{ va.id }}">{{ va.nom }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <button type="submit">Rechercher</button>
+                        </form>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Hero Section End -->
+
+<!-- Most Search Section Begin -->
+<section class="most-search spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <h2>Jardins d'enfants</h2>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {% for jardin in jardins %}
+            <div class="col-lg-4 col-md-6">
+                <a href="/jardin/afficher/{{ jardin.slug }}">
+                <div class="listing__item">
+                    <div class="listing__item__pic set-bg" data-setbg="{% static 'front/img/listing/list-1.jpg' %}">
+                        <img src="{{ jardin.logo }}" alt="">
+                        <div class="listing__item__pic__tag">Popular</div>
+                    </div>
+                    <div class="listing__item__text">
+                        <div class="listing__item__text__inside">
+                            <h5>{{ jardin.nom }}</h5>
+                            <div class="listing__item__text__rating">
+                                <div class="listing__item__rating__star">
+                                    <span class="icon_star"></span>
+                                    <span class="icon_star"></span>
+                                    <span class="icon_star"></span>
+                                    <span class="icon_star"></span>
+                                    <span class="icon_star-half_alt"></span>
+                                </div>
+                            </div>
+                            <ul>
+                                <li><span class="icon_pin_alt"></span> 
+                                    {{ jardin.adresse }} {{ jardin.code_postal }} {{ jardin.ville.nom }}
+                                </li>
+                                <li><span class="icon_phone"></span> {{ jardin.tel }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                </a>
+            </div>
+
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<!-- Most Search Section End -->
+
+<!-- Work Section Begin -->
+<section class="work spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <h2>How Does It Work</h2>
+                    <p>Travelocity empowers travelers who are giving back on their trips in ways big and small</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-6">
+                <div class="work__item">
+                    <div class="work__item__number">01.</div>
+                    <img src="{% static 'front/img/work/work-1.png' %}" alt="">
+                    <h5>Location & Categories</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="work__item">
+                    <div class="work__item__number">02.</div>
+                    <img src="{% static 'front/img/work/work-2.png' %}" alt="">
+                    <h5>Explore Listting</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="work__item">
+                    <div class="work__item__number">03.</div>
+                    <img src="{% static 'front/img/work/work-3.png' %}" alt="">
+                    <h5>Making Appointments</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Work Section End -->
+
+<!-- Feature Location Section Begin -->
+<section class="feature-location spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <h2>Top Featured Locations</h2>
+                    <p>Explore restaurants, bars, and cafés by locality</p>
+                </div>
+            </div>
+        </div>
+       
+        <div class="row">
+        {% for ville in villes %}
+            <div class="col-lg-3">
+                <a href="#" class="feature__location__item large-item set-bg"
+                    data-setbg="{{ville.image}}">
+                    <div class="feature__location__item__text">
+                        <h5> {{ville.nom}}</h5>
+                        <ul>
+                            <li>2045 Listings</li>
+                            <li>3648 Users</li>
+                        </ul>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+</section>
+<!-- Feature Location Section End -->
+
+<!-- Blog Section Begin -->
+<section class="news-post spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <h2>News Post</h2>
+                    <p>Checkout Latest News And Articles From Our Blog</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-6">
+                <div class="blog__item">
+                    <div class="blog__item__pic set-bg" data-setbg="{% static 'front/img/blog/blog-1.jpg' %}">
+                        <a href="https://www.youtube.com/watch?v=8EJ3zbKTWQ8" class="play-btn video-popup"><i class="fa fa-play"></i></a>
+                    </div>
+                    <div class="blog__item__text">
+                        <ul class="blog__item__tags">
+                            <li><i class="fa fa-tags"></i> Travel</li>
+                            <li>Videos</li>
+                        </ul>
+                        <h5><a href="#">Internet Banner Advertising Most Reliable</a></h5>
+                        <ul class="blog__item__widget">
+                            <li><i class="fa fa-clock-o"></i> 19th March, 2019</li>
+                            <li><i class="fa fa-user"></i> John Smith</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="blog__item">
+                    <div class="blog__item__pic set-bg" data-setbg="{% static 'front/img/blog/blog-2.jpg' %}"></div>
+                    <div class="blog__item__text">
+                        <ul class="blog__item__tags">
+                            <li><i class="fa fa-tags"></i> Travel</li>
+                            <li>Restaurant</li>
+                        </ul>
+                        <h5><a href="#">Internet Banner Advertising Most Reliable</a></h5>
+                        <ul class="blog__item__widget">
+                            <li><i class="fa fa-clock-o"></i> 19th March, 2019</li>
+                            <li><i class="fa fa-user"></i> John Smith</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="blog__item">
+                    <div class="blog__item__pic set-bg" data-setbg="{% static 'front/img/blog/blog-3.jpg' %}"></div>
+                    <div class="blog__item__text">
+                        <ul class="blog__item__tags">
+                            <li><i class="fa fa-tags"></i> Travel</li>
+                            <li>Restaurant</li>
+                        </ul>
+                        <h5><a href="#">Internet Banner Advertising Most Reliable</a></h5>
+                        <ul class="blog__item__widget">
+                            <li><i class="fa fa-clock-o"></i> 19th March, 2019</li>
+                            <li><i class="fa fa-user"></i> John Smith</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Blog Section End -->
+    
+{% endblock %}  

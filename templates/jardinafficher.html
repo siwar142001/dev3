@@ -1,0 +1,201 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Accueil
+{% endblock %}
+{% block content %}
+
+ <!-- Listing Section Begin -->
+ <section class="listing-hero set-bg" data-setbg="../../../{{ couverture }}">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="listing__hero__option">
+                    <div class="listing__hero__icon">
+                        <img src="../../../{{ jardin.logo }}" alt="">
+                    </div>
+                    <div class="listing__hero__text">
+                        <h2>{{ jardin.nom }}</h2>
+                        <div class="listing__hero__widget">
+                            <div class="listing__hero__widget__rating">
+                                {{ etoiles|safe }}
+                            </div>
+                            <div>{{nb_avis}} avis</div>
+                        </div>
+                        <p><span class="icon_pin_alt"></span> {{ jardin.adresse }} {{ jardin.code_postal }} {{ jardin.ville.nom }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="listing__hero__btns">
+                    <a href="#" class="primary-btn share-btn"><i class="fa fa-mail-reply"></i> Share</a>
+                    <a href="#" class="primary-btn"><i class="fa fa-bookmark"></i> Bookmark</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Listing Section End -->
+
+<!-- Listing Details Section Begin -->
+<section class="listing-details spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="listing__details__text">
+                    <div class="listing__details__about">
+                        <h4>Description</h4>
+                        {{ jardin.description }}    
+                    </div>
+                    <div class="listing__details__gallery">
+                        <h4>Galerie</h4>
+                        <div id="jardin-slider" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">                                
+                                {% for img in images %}
+                                
+                                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                    <img src="../../../{{img.image}}" class="d-block w-100">
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <a class="carousel-control-prev" href="#jardin-slider" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Precedent</span>
+                            </a>
+                            <a class="carousel-control-next" href="#jardin-slider" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Suivant</span>
+                            </a>
+                            <!-- Thumbnails-->
+                            <ol class="carousel-indicators list-inline">
+                                {% for img in images %}             
+                                <li class="list-inline-item {% if forloop.first %}active{% endif %}">
+                                <a id="carousel-selector-{{ forloop.counter0 }}" data-slide-to="{{ forloop.counter0 }}" data-target="#jardin-slider">
+                                    <img src="../../../{{img.image}}"  class="img-fluid">
+                                </a>
+                                </li>
+                                {% endfor %}
+                            </ol> 
+                        </div>            
+                    </div>
+                    <div class="listing__details__amenities">
+                        <h4>Caracteristiques</h4>
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3 col-6">
+                                {% for car in caracteristiques %} 
+                                <div class="listing__details__amenities__item">
+                                    <i class="fa {{car.icone}} fa-lg" aria-hidden="true"></i>
+                                    <h6>{{car.nom}}</h6>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="listing__details__rating">
+                        <h4>Avis</h4>
+                        <div class="listing__details__rating__overall">
+                            <h2>{{integer_nb_etoiles}}</h2>
+                            <div class="listing__details__rating__star">
+                                {{ etoiles|safe }}
+                            </div>
+                            <span>{{nb_avis}} avis</span>
+                        </div>
+                        <div class="listing__details__rating__bar">
+                            <div class="listing__details__rating__bar__item">
+                                <span>{{prix}}</span>
+                                <div id="bar1" class="barfiller">
+                                    <span class="fill" data-percentage="{{prix_pourcentage}}"></span>
+                                </div>
+                                <span class="right">Prix</span>
+                            </div>
+                            <div class="listing__details__rating__bar__item">
+                                <span>{{proprete}}</span>
+                                <div id="bar2" class="barfiller">
+                                    <span class="fill" data-percentage="{{proprete_pourcentage}}"></span>
+                                </div>
+                                <span class="right">Propreté</span>
+                            </div>
+                            <div class="listing__details__rating__bar__item">
+                                <span>{{espace}}</span>
+                                <div id="bar3" class="barfiller">
+                                    <span class="fill" data-percentage="80"></span>
+                                </div>
+                                <span class="right">Espace</span>
+                            </div>
+                            <div class="listing__details__rating__bar__item">
+                                <span>{{service}}</span>
+                                <div id="bar4" class="barfiller">
+                                    <span class="fill" data-percentage="80"></span>
+                                </div>
+                                <span class="right">Service</span>
+                            </div>
+                            <div class="listing__details__rating__bar__item">
+                                <span>{{localisation}}</span>
+                                <div id="bar5" class="barfiller">
+                                    <span class="fill" data-percentage="85"></span>
+                                </div>
+                                <span class="right">Localisation</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="listing__details__comment">
+                        <h4>Commentaires</h4>
+                        {% for avis in aviss %} 
+                        <div class="listing__details__comment__item">
+                            <div class="listing__details__comment__item__text">
+                                <div class="listing__details__comment__item__rating">
+                                    
+                                    <i class="fa fa-star"></i>
+                                </div>
+                                <span>Ajouté le {{avis.created_at|date:"d/m/Y" }}</span>
+                                <h5>{{avis.parent_nom}}</h5>
+                                {{avis.contenu}}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="listing__details__review">
+                        <h4>Ajouter un avis</h4>
+                        <form method="POST" >
+                            {% csrf_token %}
+                            {{ form_avis.as_p }}
+                            <button type="submit" class="site-btn">Enregistrer</button>
+                        </form>
+                        {{avis.contenu}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="listing__sidebar">
+                    <div class="listing__sidebar__contact">
+                        <div class="listing__sidebar__contact__map">
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24168.833995532765!2d-74.79633710628465!3d40.78172222265886!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c384de7a5300b9%3A0x8afc61979217d49d!2sLong%20Valley%2C%20NJ%2007853%2C%20USA!5e0!3m2!1sen!2sbd!4v1586852528126!5m2!1sen!2sbd"
+                                height="200" style="border:0;" allowfullscreen="" aria-hidden="false"
+                                tabindex="0"></iframe>
+                            <img src="img/listing/details/map-icon.png" alt="">
+                        </div>
+                        <div class="listing__sidebar__contact__text">
+                            <h4>Contacts</h4>
+                            <ul>
+                                <li><span class="icon_pin_alt"></span> {{ jardin.adresse }} <br>{{ jardin.code_postal }}  {{ jardin.ville.nom }}  </li>
+                                <li><span class="icon_phone"></span> {{ jardin.tel }} </li>
+                                <li><span class="icon_mail_alt"></span> {{ jardin.email }} </li>
+                                <li><span class="icon_globe-2"></span>{{ jardin.site }} </li>
+                            </ul>
+                            <div class="listing__sidebar__contact__social">
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+                                <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+                                <a href="#" class="google"><i class="fa fa-google"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Listing Details Section End -->
+
+{% endblock %}  

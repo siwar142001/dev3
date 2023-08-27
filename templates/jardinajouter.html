@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Ajouter un jardin d'enfant
+{% endblock %}
+{% block content %}
+    <!-- Breadcrumb Begin -->
+    <div class="breadcrumb-area set-bg" data-setbg="{% static 'front/img/breadcrumb/breadcrumb-normal.jpg' %}">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb__text">
+                        <h2>Ajouter un jardin d'enfant</h2>
+                        <div class="breadcrumb__option">
+                            <a href="{% url 'index' %}"><i class="fa fa-home"></i> Accueil</a>
+                            <span>Ajouter un jardin d'enfant</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+    <section class="main spad">
+        <div class="container">
+            <!-- formulaire ajout jardin  Begin -->
+            <form id="jardin-form" class="contact__form" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        {{ form.nom }}
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        {{ form.adresse }}
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        {{ form.code_postal }}
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                        {{ form.tel }}
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                        {{ form.email }}
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                        {{ form.site }}
+                    </div>
+                </div>
+                {{ form.description }}
+                <button type="submit" class="site-btn">Envoyer</button>
+                <p> </p>
+                <div id="loading" style="display: none;">Envoi en cours ...</div>
+                <div id="success-message" style="display: none;"></div>
+            </form>
+        </div>
+    </section>
+
+
+{% endblock %}
+
+   
